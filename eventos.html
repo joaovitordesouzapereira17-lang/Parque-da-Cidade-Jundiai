@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eventos no Parque da Cidade de Jundiaí — Arraiá, cinema ao ar livre, festival de inverno e mais." />
+  <title>Parque da Cidade de Jundiaí | Eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parque: { DEFAULT: '#1E5A34', escuro: '#16532C', claro: '#e6f2eb' },
+            fundo: { DEFAULT: '#ffffff', suave: '#f8fafc', cinza: '#f1f5f9' },
+            texto: { DEFAULT: '#1e293b', suave: '#64748b' },
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; }
+    h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
+    #modal-overlay { transition: opacity 0.3s ease, visibility 0.3s; }
+    #modal-panel { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; }
+    #modal-overlay:not(.modal-open) #modal-panel { transform: scale(0.92) translateY(12px); opacity: 0; }
+    #modal-overlay.modal-open #modal-panel { transform: scale(1) translateY(0); opacity: 1; }
+    body.modal-active { overflow: hidden; }
+  </style>
+</head>
+<body class="bg-fundo-suave text-texto antialiased">
+
+  <header class="bg-parque text-white sticky top-0 z-50 shadow-md">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 sm:py-0 sm:h-[4.5rem] lg:h-20">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-12 w-auto" width="120" height="48" />
+        <div class="min-w-0 leading-tight">
+          <span class="font-display text-base sm:text-lg font-semibold text-white block">Parque da Cidade</span>
+          <span class="text-[10px] sm:text-xs text-white/85 block">Jundiaí</span>
+        </div>
+      </a>
+      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 md:gap-8 text-xs sm:text-sm font-medium">
+        <li><a href="index.html" class="text-white/90 hover:text-white transition">Início</a></li>
+        <li><a href="atracoes.html" class="text-white/90 hover:text-white transition">Atrações</a></li>
+        <li><a href="eventos.html" class="text-white font-semibold border-b-2 border-white pb-0.5">Eventos</a></li>
+        <li><a href="infantil.html" class="text-white/90 hover:text-white transition">Infantil</a></li>
+        <li><a href="index.html#contato" class="text-white/90 hover:text-white transition">Contato</a></li>
+        <li>
+          <a href="https://www.google.com/maps/place/Parque+da+Cidade/@-23.1645373,-46.9080785,15z/data=!4m2!3m1!1s0x0:0xdd684ff2ecb1cc59" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/50 text-white font-semibold hover:bg-white/10 transition whitespace-nowrap">Como Chegar</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="py-16 lg:py-24 bg-parque text-white" style="background-image: linear-gradient(rgba(22, 83, 68, 0.78), rgba(22, 83, 68, 0.88)), url('imagens/hero-parque.jpg'); background-size: cover; background-position: center;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-parque-claro text-sm font-semibold uppercase tracking-widest">Agenda cultural</span>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold mt-3">Eventos no Parque</h1>
+      <p class="mt-4 text-white/80 max-w-xl mx-auto">Celebrações, cinema, música e tradição — programação gratuita ou de baixo custo para toda a comunidade.</p>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24 -mt-8 bg-fundo-suave">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-12">
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-texto">Próximos eventos</h2>
+        <p class="mt-2 text-texto-suave text-sm">Inscrições abertas — confira as datas em breve.</p>
+      </div>
+      <div id="eventos-futuros" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/festajunina.png" alt="Arraiá do Parque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque text-white text-xs font-bold uppercase">Inscrições abertas</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Arraiá do Parque</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Quadrilha, comidas típicas, fogueira simbólica e muito forró na praça central.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Sábado e domingo, das 09:00 às 17:00</p>
+            <button type="button" data-evento="arraia" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/festivaldeinverno.png" alt="Festival de Inverno" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque text-white text-xs font-bold uppercase">Inscrições abertas</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Festival de Inverno</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Música, teatro, artesanato e gastronomia local em múltiplos palcos.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Sábado e domingo, das 09:00 às 17:00</p>
+            <button type="button" data-evento="inverno" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/cinemaaoarlivre.png" alt="Cinema ao Ar Livre" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque-claro text-parque text-xs font-bold uppercase">Junho</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Cinema ao Ar Livre</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Sessões gratuitas de filmes clássicos e contemporâneos sob as estrelas.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Domingo, das 16:00 às 17:45</p>
+            <button type="button" data-evento="cinema" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/feiraecologica.png" alt="Feira Ecológica" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque-claro text-parque text-xs font-bold uppercase">Recorrente</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Feira Ecológica</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Orgânicos, plantas nativas, reciclagem e oficinas de sustentabilidade.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Sábado, das 07:30 às 13:00</p>
+            <button type="button" data-evento="feira" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+
+        
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/corrida.png" alt="Corrida do Parque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque-claro text-parque text-xs font-bold uppercase">Setembro</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Corrida do Parque</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Prova de 5 km e 10 km pelas trilhas e ciclovia — inclusiva e familiar.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Domingo, largada às 07:00 e encerramento às 11:00</p>
+            <button type="button" data-evento="corrida" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+
+        <article class="evento-card group rounded-2xl bg-white overflow-hidden shadow-md hover:shadow-xl transition flex flex-col w-full min-w-0">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="imagens/natalnoparque.png" alt="Natal no Parque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-parque-claro text-parque text-xs font-bold uppercase">Dezembro</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Natal no Parque</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Iluminação temática, coral infantil, presépio equino e visita do Papai Noel.</p>
+            <p class="mt-4 text-xs text-parque font-semibold">Sábado e domingo, das 10:00 às 17:30</p>
+            <button type="button" data-evento="natal" class="evento-detalhes mt-5 w-full py-2.5 rounded-full border-2 border-parque text-parque font-semibold text-sm hover:bg-parque hover:text-white transition">Ver detalhes</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-texto">Eventos anteriores</h2>
+        <p class="mt-2 text-texto-suave text-sm">Abril e início de maio de 2026 — inscrições encerradas ou evento já realizado.</p>
+      </div>
+      <div id="eventos-passados" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <article class="evento-card evento-passado rounded-2xl bg-white overflow-hidden shadow-md flex flex-col w-full min-w-0 opacity-80">
+          <div class="relative aspect-[16/10] overflow-hidden grayscale-[35%]">
+            <img src="imagens/pascoanoparque.png" alt="Páscoa no Parque" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-600 text-white text-xs font-bold uppercase">Evento Realizado</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Páscoa no Parque</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Caça aos ovos, oficina de pintura e contação de histórias na praça central.</p>
+            <p class="mt-4 text-xs text-slate-500 font-semibold">Domingo, das 08:30 às 14:00</p>
+            <button type="button" disabled class="mt-5 w-full py-2.5 rounded-full border-2 border-slate-300 text-slate-400 font-semibold text-sm cursor-not-allowed">Encerrado</button>
+          </div>
+        </article>
+
+        <article class="evento-card evento-passado rounded-2xl bg-white overflow-hidden shadow-md flex flex-col w-full min-w-0 opacity-80">
+          <div class="relative aspect-[16/10] overflow-hidden grayscale-[35%]">
+            <img src="imagens/feiraecologica.png" alt="Dia da Terra no Parque" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-red-700 text-white text-xs font-bold uppercase">Inscrições Encerradas</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Dia da Terra no Parque</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Mutirão de plantio, oficinas de compostagem e trilha educativa pelo bosque.</p>
+            <p class="mt-4 text-xs text-slate-500 font-semibold">Sábado, das 09:00 às 16:00</p>
+            <button type="button" disabled class="mt-5 w-full py-2.5 rounded-full border-2 border-slate-300 text-slate-400 font-semibold text-sm cursor-not-allowed">Encerrado</button>
+          </div>
+        </article>
+
+        <article class="evento-card evento-passado rounded-2xl bg-white overflow-hidden shadow-md flex flex-col w-full min-w-0 opacity-80">
+          <div class="relative aspect-[16/10] overflow-hidden grayscale-[35%]">
+            <img src="imagens/corridainfantil.png" alt="Corrida Kids" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-500 text-white text-xs font-bold uppercase">Evento Realizado</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h2 class="font-display text-xl font-bold text-texto">Corrida Kids</h2>
+            <p class="mt-2 text-sm text-texto-suave flex-1">Prova infantil com percurso leve, medalha para todos os participantes e incentivo à prática esportiva.</p>
+            <p class="mt-4 text-xs text-slate-500 font-semibold">Domingo, largada às 08:30 e encerramento às 11:30</p>
+            <button type="button" disabled class="mt-5 w-full py-2.5 rounded-full border-2 border-slate-300 text-slate-400 font-semibold text-sm cursor-not-allowed">Encerrado</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 invisible pointer-events-none" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="absolute inset-0 bg-parque/80 backdrop-blur-sm" id="modal-backdrop"></div>
+    <div id="modal-panel" class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl shadow-slate-300/50">
+      <button type="button" id="modal-close" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-fundo-suave text-texto flex items-center justify-center hover:bg-parque-claro transition font-bold text-lg" aria-label="Fechar">×</button>
+      <div id="modal-image-wrap" class="aspect-[16/9] overflow-hidden rounded-t-3xl">
+        <img id="modal-image" src="" alt="" class="w-full h-full object-cover" />
+      </div>
+      <div class="p-8">
+        <span id="modal-tag" class="text-parque text-xs font-bold uppercase tracking-widest"></span>
+        <h2 id="modal-title" class="font-display text-2xl sm:text-3xl font-bold text-texto mt-2"></h2>
+        <p id="modal-date" class="mt-3 text-sm font-semibold text-parque"></p>
+        <p id="modal-desc" class="mt-4 text-texto-suave leading-relaxed text-sm"></p>
+        <ul id="modal-list" class="mt-6 space-y-2 text-sm text-texto/80"></ul>
+        <a id="modal-cta" href="index.html#contato" class="mt-8 inline-flex w-full justify-center py-3 rounded-full bg-parque text-white font-semibold hover:bg-parque-escuro transition">Tirar dúvidas</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-parque text-white py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+        <a href="index.html" class="flex items-center gap-3 shrink-0">
+          <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-10 w-auto brightness-0 invert" width="100" height="40" />
+          <span class="text-sm font-medium">Parque da Cidade — Jundiaí</span>
+        </a>
+        <p class="text-sm text-white/75 text-center">© 2026 Parque da Cidade de Jundiaí</p>
+        <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/90">
+          <a href="index.html" class="hover:text-white transition">Início</a>
+          <a href="atracoes.html" class="hover:text-white transition">Atrações</a>
+          <a href="eventos.html" class="hover:text-white transition">Eventos</a>
+          <a href="infantil.html" class="hover:text-white transition">Infantil</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const eventos = {
+      arraia: {
+        titulo: 'Arraiá do Parque',
+        tag: 'Festa junina',
+        data: 'Sábado e domingo, das 09:00 às 17:00',
+        imagem: 'imagens/festajunina.png',
+        descricao: 'O Arraiá do Parque acontece com programação leve e familiar, dentro do horário de funcionamento do parque. Quadrilhas, comidas típicas e atividades culturais com clima de festa junina.',
+        itens: ['Entrada gratuita', 'Inscrições abertas até 10/06', 'Estacionamento auxiliar no entorno', 'Proibido copos de vidro na área do evento']
+      },
+      cinema: {
+        titulo: 'Cinema ao Ar Livre',
+        tag: 'Cultura',
+        data: 'Domingo, das 16:00 às 17:45',
+        imagem: 'imagens/cinemaaoarlivre.png',
+        descricao: 'Sessão especial no gramado do lago, pensada para aproveitar o pôr do sol e fechar o dia dentro do horário permitido do parque.',
+        itens: ['Filmes classificação livre ou 10 anos', 'Food trucks autorizados', 'Cancelamento em caso de chuva forte', 'Capacidade: 800 pessoas']
+      },
+      inverno: {
+        titulo: 'Festival de Inverno',
+        tag: 'Artes',
+        data: 'Sábado e domingo, das 09:00 às 17:00',
+        imagem: 'imagens/festivaldeinverno.png',
+        descricao: 'Fim de semana de música, teatro de rua, dança, exposições e feira de artesanato, organizado para aproveitar o melhor do período da tarde.',
+        itens: ['Grande parte da programação gratuita', 'Inscrições abertas para workshops', 'Estacionamento rotativo', 'Parceria com escolas municipais']
+      },
+      corrida: {
+        titulo: 'Corrida do Parque',
+        tag: 'Esporte',
+        data: 'Domingo, largada às 07:00 e encerramento às 11:00',
+        imagem: 'imagens/corrida.png',
+        descricao: 'Prova oficial cronometrada em percursos de 5 km e 10 km. Kit do atleta com camiseta e medalha. Categoria kids de 1 km para crianças de 6 a 12 anos.',
+        itens: ['Inscrições pelo site da prefeitura', 'Valor social: a partir de R$ 40', 'Hidratação e frutas no percurso', 'Premiação por faixa etária']
+      },
+      feira: {
+        titulo: 'Feira Ecológica',
+        tag: 'Sustentabilidade',
+        data: 'Sábado, das 07:30 às 13:00',
+        imagem: 'imagens/feiraecologica.png',
+        descricao: 'Produtores locais, horta orgânica, plantas nativas e oficinas de compostagem e reciclagem. Espaço kids com pintura em pedras e caixa de minhocas.',
+        itens: ['Entrada livre', 'Traga sacola retornável', 'Aceita PIX nos boxes', 'Pet friendly em área delimitada']
+      },
+      natal: {
+        titulo: 'Natal no Parque',
+        tag: 'Família',
+        data: 'Sábado e domingo, das 10:00 às 17:30',
+        imagem: 'imagens/natalnoparque.png',
+        descricao: 'Túnel de luzes, árvore sustentável de 12 m, apresentações de corais e teatro de fantoches. Papai Noel recebe crianças de forma organizada dentro do horário do parque.',
+        itens: ['Iluminação a partir das 18h30', 'Foto com Papai Noel: doação de 1 kg de alimento', 'Cantata de Natal no dia 23', 'Voluntários para apoio logístico']
+      }
+    };
+
+    const overlay = document.getElementById('modal-overlay');
+    const backdrop = document.getElementById('modal-backdrop');
+    const closeBtn = document.getElementById('modal-close');
+    const modalImg = document.getElementById('modal-image');
+    const modalTag = document.getElementById('modal-tag');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDate = document.getElementById('modal-date');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalList = document.getElementById('modal-list');
+
+    function abrirModal(id) {
+      const ev = eventos[id];
+      if (!ev) return;
+
+      modalImg.src = ev.imagem;
+      modalImg.alt = ev.titulo;
+      modalTag.textContent = ev.tag;
+      modalTitle.textContent = ev.titulo;
+      modalDate.textContent = ev.data;
+      modalDesc.textContent = ev.descricao;
+      modalList.innerHTML = ev.itens.map(item => `<li class="flex gap-2"><span class="text-parque">●</span>${item}</li>`).join('');
+
+      overlay.classList.add('modal-open');
+      overlay.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'visible');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-active');
+    }
+
+    function fecharModal() {
+      overlay.classList.remove('modal-open');
+      overlay.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-active');
+    }
+
+    document.querySelectorAll('.evento-detalhes').forEach(btn => {
+      btn.addEventListener('click', () => abrirModal(btn.dataset.evento));
+    });
+
+    closeBtn.addEventListener('click', fecharModal);
+    backdrop.addEventListener('click', fecharModal);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') fecharModal();
+    });
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da Forca | Mundo das Crianças Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mundo: {
+              amarelo: '#FFD54F', 'amarelo-claro': '#FFF8E1', azul: '#5EC8F2', 'azul-claro': '#E8F7FC',
+              laranja: '#FF9F43', rosa: '#FF8FAB', menta: '#98E4C9', lilas: '#C9B8FF',
+              texto: '#334155', suave: '#64748b',
+            },
+          },
+          fontFamily: { kids: ['Fredoka', 'Nunito', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: Fredoka, Nunito, system-ui, sans-serif; }
+    .img-mascote {
+      width: clamp(5rem, 28vw, 7rem);
+      height: clamp(5rem, 28vw, 7rem);
+      object-fit: contain;
+      background: linear-gradient(145deg, #FFECD9, #FFF8E1);
+      border-radius: 1.25rem;
+      padding: 0.5rem;
+      margin: 0 auto;
+      display: block;
+    }
+    .letter-slot {
+      width: clamp(1.75rem, 8vw, 2.5rem);
+      height: clamp(2.25rem, 10vw, 3rem);
+    }
+    .key-btn {
+      min-width: clamp(2rem, 9vw, 2.75rem);
+      min-height: clamp(2.25rem, 10vw, 2.75rem);
+      touch-action: manipulation;
+    }
+    .tentativa-ativa { background: #98E4C9; border: 2px solid #5EC8F2; }
+    .tentativa-perdida { background: #e2e8f0; opacity: 0.5; }
+    @keyframes celebrate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .celebrate { animation: celebrate 0.6s ease; }
+  </style>
+</head>
+<body class="bg-mundo-laranja-claro text-mundo-texto min-h-screen flex flex-col overflow-x-hidden antialiased">
+
+  <header class="bg-gradient-to-r from-mundo-laranja to-mundo-amarelo text-white shrink-0 shadow-md">
+    <nav class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2 min-h-[3rem]">
+      <a href="infantil.html" class="text-sm font-semibold text-white hover:opacity-90 transition py-2">← Voltar</a>
+      <span class="font-kids font-bold text-sm sm:text-base text-center flex-1 px-2">Forca da Natureza</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://www.google.com/maps/place/Parque+da+Cidade/@-23.1645373,-46.9080785,15z/data=!4m2!3m1!1s0x0:0xdd684ff2ecb1cc59" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-white/50 font-semibold hover:bg-white/15 transition">Como Chegar</a>
+        <a href="index.html" class="text-xs sm:text-sm text-white/90 hover:text-white py-2">Parque</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 w-full max-w-2xl mx-auto px-4 py-6 sm:py-10 pb-8">
+
+    <section id="panel-start" class="text-center">
+      <img src="imagens/animais/loboguara.png" alt="Mascote Lobo-Guará" class="img-mascote mb-4" width="112" height="112" />
+      <h1 class="font-kids text-2xl sm:text-3xl font-bold">Forca da Natureza</h1>
+      <p class="mt-3 text-sm sm:text-base text-mundo-suave max-w-md mx-auto leading-relaxed">
+        Adivinhe a palavra letra por letra. Você tem 6 folhas de energia — não perca todas!
+      </p>
+      <button type="button" id="btn-play" class="mt-8 px-8 py-4 rounded-2xl bg-mundo-laranja text-white text-lg font-kids font-bold shadow-lg hover:opacity-90 transition w-full sm:w-auto">
+        Começar
+      </button>
+    </section>
+
+    <section id="panel-game" class="hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <p class="text-xs sm:text-sm font-kids font-bold text-mundo-laranja uppercase tracking-wide">Palavra <span id="word-num">1</span> de <span id="word-total">4</span></p>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-kids font-bold text-mundo-suave">Folhas:</span>
+          <div id="leaves" class="flex flex-wrap gap-1.5" aria-label="Tentativas restantes"></div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white p-4 sm:p-8 shadow-md border-2 border-mundo-menta text-center">
+        <p id="hint" class="text-xs sm:text-sm text-mundo-azul font-kids font-semibold mb-4"></p>
+        <div id="word-display" class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 min-h-[3rem]"></div>
+        <p id="game-message" class="text-sm font-kids font-bold min-h-[1.25rem] text-mundo-suave"></p>
+      </div>
+
+      <div id="keyboard" class="mt-6 flex flex-wrap justify-center gap-1.5 sm:gap-2 max-w-full"></div>
+
+      <div class="mt-6 flex flex-wrap gap-3 justify-center">
+        <button type="button" id="btn-next" class="hidden px-5 py-2.5 rounded-xl bg-mundo-menta text-mundo-texto font-kids font-bold text-sm hover:opacity-90 transition">
+          Próxima palavra
+        </button>
+        <button type="button" id="btn-skip-word" class="px-5 py-2.5 rounded-xl border-2 border-mundo-laranja/40 text-mundo-laranja font-kids font-bold text-sm hover:bg-white transition">
+          Nova palavra
+        </button>
+      </div>
+    </section>
+
+    <section id="panel-end" class="hidden text-center">
+      <img src="imagens/animais/loboguara.png" alt="" class="img-mascote mb-4" width="96" height="96" />
+      <h2 id="end-title" class="font-kids text-2xl sm:text-3xl font-bold">Você venceu!</h2>
+      <p id="end-desc" class="mt-2 text-sm text-mundo-suave"></p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <button type="button" id="btn-restart" class="px-6 py-3 rounded-2xl bg-mundo-laranja text-white font-kids font-bold">Jogar de novo</button>
+        <a href="infantil.html" class="px-6 py-3 rounded-2xl border-2 border-mundo-azul text-mundo-azul font-kids font-bold text-center">Mundo Digital</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const palavras = [
+      { palavra: 'CAPIVARA', dica: 'Maior roedor do Brasil — adora água!' },
+      { palavra: 'ARVORE', dica: 'Dá sombra e oxigênio no parque.' },
+      { palavra: 'REPRESA', dica: 'Água represada onde vivem muitos peixes.' },
+      { palavra: 'PASSARO', dica: 'Tem penas e adora voar entre os galhos.' }
+    ];
+
+    const MAX_TENTATIVAS = 6;
+    const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    let palavraAtual = 0;
+    let revelada = [];
+    let tentativasErradas = 0;
+    let letrasUsadas = new Set();
+    let vitorias = 0;
+    let audioCtx = null;
+
+    const panelStart = document.getElementById('panel-start');
+    const panelGame = document.getElementById('panel-game');
+    const panelEnd = document.getElementById('panel-end');
+
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function beep(freq, dur, vol = 0.12) {
+      try {
+        const ctx = getAudio();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.frequency.value = freq;
+        g.gain.setValueAtTime(vol, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start();
+        o.stop(ctx.currentTime + dur);
+      } catch (_) {}
+    }
+
+    function somCerta() { beep(600, 0.1); }
+    function somErrada() { beep(180, 0.2); }
+    function somVitoria() {
+      [523, 659, 784].forEach((f, i) => setTimeout(() => beep(f, 0.15), i * 90));
+    }
+
+    function renderLeaves() {
+      const el = document.getElementById('leaves');
+      const restantes = MAX_TENTATIVAS - tentativasErradas;
+      el.innerHTML = '';
+      for (let i = 0; i < MAX_TENTATIVAS; i++) {
+        const span = document.createElement('span');
+        span.className = `w-8 h-8 rounded-full ${i < restantes ? 'tentativa-ativa' : 'tentativa-perdida'}`;
+        span.setAttribute('aria-hidden', 'true');
+        el.appendChild(span);
+      }
+      el.setAttribute('aria-label', `${restantes} tentativas restantes`);
+    }
+
+    function renderWord() {
+      const wrap = document.getElementById('word-display');
+      wrap.innerHTML = '';
+      revelada.forEach((letra) => {
+        const box = document.createElement('div');
+        box.className = 'letter-slot flex items-center justify-center rounded-xl border-2 border-mundo-azul-claro bg-mundo-amarelo-claro font-kids font-bold text-lg sm:text-2xl uppercase';
+        box.textContent = letra || '';
+        if (!letra) box.classList.add('text-transparent');
+        else box.classList.remove('text-transparent', 'text-transparent');
+        if (letra) box.classList.add('text-mundo-texto', 'bg-mundo-menta/40', 'border-mundo-menta');
+        wrap.appendChild(box);
+      });
+    }
+
+    function renderKeyboard() {
+      const kb = document.getElementById('keyboard');
+      kb.innerHTML = '';
+      alfabeto.forEach(letra => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = letra;
+        btn.className = 'key-btn rounded-xl border-2 border-mundo-azul-claro bg-white font-kids font-bold text-sm sm:text-base hover:border-mundo-azul hover:bg-mundo-azul-claro transition disabled:opacity-40 disabled:cursor-not-allowed';
+        btn.dataset.letter = letra;
+        if (letrasUsadas.has(letra)) btn.disabled = true;
+        btn.addEventListener('click', () => chutar(letra, btn));
+        kb.appendChild(btn);
+      });
+    }
+
+    function palavraCompleta() {
+      const p = palavras[palavraAtual].palavra;
+      return p.split('').every((c, i) => c === ' ' || revelada[i]);
+    }
+
+    function chutar(letra, btn) {
+      if (letrasUsadas.has(letra)) return;
+      letrasUsadas.add(letra);
+      btn.disabled = true;
+      getAudio().resume?.();
+
+      const p = palavras[palavraAtual].palavra;
+      const indices = [];
+      p.split('').forEach((c, i) => { if (c === letra) indices.push(i); });
+
+      if (indices.length > 0) {
+        indices.forEach(i => { revelada[i] = letra; });
+        somCerta();
+        document.getElementById('game-message').textContent = 'Boa letra!';
+        document.getElementById('game-message').className = 'text-sm font-kids font-bold text-mundo-menta';
+        renderWord();
+        if (palavraCompleta()) fimPalavra(true);
+      } else {
+        tentativasErradas++;
+        somErrada();
+        btn.classList.add('bg-red-100', 'border-red-400');
+        document.getElementById('game-message').textContent = `A letra ${letra} não está na palavra`;
+        document.getElementById('game-message').className = 'text-sm font-kids font-bold text-red-600';
+        renderLeaves();
+        renderKeyboard();
+        if (tentativasErradas >= MAX_TENTATIVAS) fimPalavra(false);
+      }
+    }
+
+    function fimPalavra(ganhou) {
+      document.querySelectorAll('#keyboard button').forEach(b => b.disabled = true);
+      const msg = document.getElementById('game-message');
+      const btnNext = document.getElementById('btn-next');
+
+      if (ganhou) {
+        vitorias++;
+        revelada = palavras[palavraAtual].palavra.split('');
+        renderWord();
+        document.getElementById('word-display').classList.add('celebrate');
+        msg.textContent = 'Acertou a palavra!';
+        msg.className = 'text-sm font-kids font-bold text-green-600';
+        somVitoria();
+      } else {
+        msg.textContent = `Era: ${palavras[palavraAtual].palavra}`;
+        msg.className = 'text-sm font-kids font-bold text-mundo-suave';
+      }
+
+      btnNext.classList.remove('hidden');
+      if (palavraAtual >= palavras.length - 1) {
+        btnNext.textContent = 'Ver resultado final';
+      } else {
+        btnNext.textContent = 'Próxima palavra';
+      }
+    }
+
+    function iniciarPalavra() {
+      const item = palavras[palavraAtual];
+      revelada = item.palavra.split('').map(c => (c === ' ' ? ' ' : ''));
+      tentativasErradas = 0;
+      letrasUsadas.clear();
+      document.getElementById('hint').textContent = 'Dica: ' + item.dica;
+      document.getElementById('word-num').textContent = palavraAtual + 1;
+      document.getElementById('word-total').textContent = palavras.length;
+      document.getElementById('game-message').textContent = '';
+      document.getElementById('btn-next').classList.add('hidden');
+      document.getElementById('word-display').classList.remove('celebrate');
+      renderLeaves();
+      renderWord();
+      renderKeyboard();
+    }
+
+    function mostrarJogo() {
+      panelStart.classList.add('hidden');
+      panelEnd.classList.add('hidden');
+      panelGame.classList.remove('hidden');
+    }
+
+    function proximaOuFim() {
+      document.getElementById('btn-next').classList.add('hidden');
+      if (palavraAtual < palavras.length - 1) {
+        palavraAtual++;
+        iniciarPalavra();
+      } else {
+        panelGame.classList.add('hidden');
+        panelEnd.classList.remove('hidden');
+        const todas = vitorias === palavras.length;
+        document.getElementById('end-title').textContent = todas ? 'Campeão da natureza!' : 'Bom esforço!';
+        document.getElementById('end-desc').textContent =
+          `Você acertou ${vitorias} de ${palavras.length} palavras. O Sagui está orgulhoso!`;
+      }
+    }
+
+    function reiniciar() {
+      palavraAtual = 0;
+      vitorias = 0;
+      panelEnd.classList.add('hidden');
+      mostrarJogo();
+      iniciarPalavra();
+    }
+
+    document.getElementById('btn-play').addEventListener('click', () => {
+      getAudio().resume?.();
+      reiniciar();
+    });
+    document.getElementById('btn-restart').addEventListener('click', reiniciar);
+    document.getElementById('btn-next').addEventListener('click', proximaOuFim);
+    document.getElementById('btn-skip-word').addEventListener('click', () => {
+      if (palavraAtual < palavras.length - 1) {
+        palavraAtual++;
+        iniciarPalavra();
+      } else reiniciar();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo Genius Musical | Mundo das Crianças Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mundo: {
+              amarelo: '#FFD54F', 'amarelo-claro': '#FFF8E1', azul: '#5EC8F2', 'azul-claro': '#E8F7FC',
+              laranja: '#FF9F43', rosa: '#FF8FAB', menta: '#98E4C9', lilas: '#C9B8FF',
+              texto: '#334155', suave: '#64748b',
+            },
+          },
+          fontFamily: { kids: ['Fredoka', 'Nunito', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: Fredoka, Nunito, system-ui, sans-serif; }
+    .img-mascote {
+      width: clamp(4rem, 22vw, 6rem);
+      height: clamp(4rem, 22vw, 6rem);
+      object-fit: contain;
+      background: linear-gradient(145deg, #E8F7FC, #FFF8E1);
+      border-radius: 1rem;
+      padding: 0.35rem;
+    }
+    .piano-key {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      transition: transform 0.08s ease, filter 0.08s ease, box-shadow 0.08s ease;
+    }
+    .piano-key:active,
+    .piano-key.is-pressed,
+    .piano-key.is-lit {
+      transform: scale(0.92) translateY(2px);
+      filter: brightness(1.2);
+      box-shadow: 0 0 24px rgba(255, 213, 79, 0.75), inset 0 2px 8px rgba(255,255,255,0.5);
+    }
+    .piano-key:disabled { cursor: not-allowed; opacity: 0.85; }
+    .vida-cheia { color: #FF8FAB; }
+    .vida-vazia { color: #cbd5e1; }
+  </style>
+</head>
+<body class="bg-mundo-amarelo-claro text-mundo-texto min-h-screen flex flex-col overflow-x-hidden antialiased">
+
+  <header class="bg-gradient-to-r from-mundo-azul to-mundo-laranja text-white shrink-0 shadow-md">
+    <nav class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2 min-h-[3rem]">
+      <a href="infantil.html" class="text-sm font-semibold text-white hover:opacity-90 transition py-2">← Voltar</a>
+      <span class="font-kids font-bold text-sm sm:text-base text-center flex-1 px-2">Genius Musical</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://www.google.com/maps/place/Parque+da+Cidade/@-23.1645373,-46.9080785,15z/data=!4m2!3m1!1s0x0:0xdd684ff2ecb1cc59" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-white/50 font-semibold hover:bg-white/15 transition">Como Chegar</a>
+        <a href="index.html" class="text-xs sm:text-sm text-white/90 hover:text-white py-2">Parque</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 w-full max-w-2xl mx-auto px-4 py-6 sm:py-10 pb-10">
+    <div class="text-center mb-5 sm:mb-6">
+      <img src="imagens/animais/jundia.png" alt="Mascote Jundiá" class="img-mascote mx-auto mb-3" width="96" height="96" />
+      <h1 class="font-kids text-2xl sm:text-3xl font-bold text-mundo-texto">Genius do Jundiá</h1>
+      <p class="mt-2 text-sm text-mundo-suave max-w-md mx-auto">Escolha um modo e explore os sons do parque. No Modo Livre, toque à vontade; no Desafio Genius, repita a sequência do Jundiá.</p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-5">
+      <button type="button" data-mode="free" aria-pressed="false" class="font-kids px-5 py-2.5 rounded-full border-2 border-mundo-amarelo bg-white text-mundo-texto font-bold text-sm shadow-md hover:border-mundo-laranja transition">
+        Modo Livre
+      </button>
+      <button type="button" data-mode="challenge" aria-pressed="true" class="font-kids px-5 py-2.5 rounded-full border-2 border-mundo-laranja bg-mundo-laranja text-white font-bold text-sm shadow-md hover:opacity-90 transition">
+        Desafio Genius
+      </button>
+    </div>
+
+    <!-- Pontuação e vidas -->
+    <div id="challenge-controls" class="flex flex-wrap items-center justify-between gap-4 mb-5 rounded-2xl bg-white border-2 border-mundo-amarelo px-4 py-3 shadow-md">
+      <div class="text-center sm:text-left">
+        <p class="text-xs font-kids font-bold text-mundo-suave uppercase tracking-wide">Sequências acertadas</p>
+        <p id="score" class="font-kids text-3xl font-bold text-mundo-azul">0</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs font-kids font-bold text-mundo-suave uppercase tracking-wide mb-1">Vidas</p>
+        <div id="lives" class="flex gap-1 text-2xl" aria-label="3 vidas">
+          <span class="vida-cheia" aria-hidden="true">♥</span>
+          <span class="vida-cheia" aria-hidden="true">♥</span>
+          <span class="vida-cheia" aria-hidden="true">♥</span>
+        </div>
+      </div>
+      <button type="button" id="btn-start" class="font-kids px-5 py-2.5 rounded-full bg-mundo-laranja text-white font-bold text-sm hover:opacity-90 transition shadow-md w-full sm:w-auto">
+        Iniciar jogo
+      </button>
+    </div>
+
+    <p id="status-msg" class="text-center font-kids font-semibold text-sm text-mundo-laranja mb-4 min-h-[1.25rem]">Toque em Iniciar para começar!</p>
+
+    <div class="rounded-3xl bg-white border-4 border-mundo-amarelo shadow-xl p-4 sm:p-8">
+      <div id="piano" class="flex justify-center items-end gap-1 sm:gap-2 flex-wrap" role="group" aria-label="Teclado de oito notas do jogo Genius"></div>
+      <p class="mt-6 text-center text-xs text-mundo-suave font-kids">Teclas: <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">A</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">S</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">D</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">F</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">G</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">H</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">J</kbd> <kbd class="px-1.5 py-0.5 rounded bg-mundo-amarelo-claro font-semibold">K</kbd></p>
+      <p class="mt-2 text-center text-xs text-mundo-suave">Dó · Ré · Mi · Fá · Sol · Lá · Si · Dó</p>
+    </div>
+
+    <div id="panel-gameover" class="hidden mt-6 rounded-2xl bg-white border-2 border-mundo-rosa p-6 text-center shadow-lg">
+      <p class="font-kids text-xl font-bold text-mundo-texto">Fim de jogo!</p>
+      <p class="mt-2 text-sm text-mundo-suave">Você acertou <strong id="final-score" class="text-mundo-azul">0</strong> sequência(s).</p>
+      <button type="button" id="btn-restart" class="hidden mt-4 font-kids px-6 py-2.5 rounded-full bg-mundo-azul text-white font-bold text-sm hover:opacity-90 transition">Jogar de novo</button>
+    </div>
+  </main>
+
+  <script>
+    const TECLAS_PC = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k'];
+    const notas = [
+      { nome: 'Dó', freq: 261.63, cor: 'bg-red-400', tecla: 'A' },
+      { nome: 'Ré', freq: 293.66, cor: 'bg-orange-400', tecla: 'S' },
+      { nome: 'Mi', freq: 329.63, cor: 'bg-amber-400', tecla: 'D' },
+      { nome: 'Fá', freq: 349.23, cor: 'bg-yellow-400', tecla: 'F' },
+      { nome: 'Sol', freq: 392.0, cor: 'bg-lime-400', tecla: 'G' },
+      { nome: 'Lá', freq: 440.0, cor: 'bg-emerald-400', tecla: 'H' },
+      { nome: 'Si', freq: 493.88, cor: 'bg-cyan-400', tecla: 'J' },
+      { nome: 'Dó', freq: 523.25, cor: 'bg-violet-400', tecla: 'K' },
+    ];
+
+    let audioCtx = null;
+    const oscillators = new Map();
+    const keyButtons = [];
+
+    let currentMode = 'challenge';
+    let sequence = [];
+    let playerStep = 0;
+    let score = 0;
+    let lives = 3;
+    let gameActive = false;
+    let inputLocked = true;
+    let isPlayingSequence = false;
+
+    const piano = document.getElementById('piano');
+    const challengeControls = document.getElementById('challenge-controls');
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const statusMsg = document.getElementById('status-msg');
+    const btnStart = document.getElementById('btn-start');
+    const btnRestart = document.getElementById('btn-restart');
+    const panelGameover = document.getElementById('panel-gameover');
+    const finalScoreEl = document.getElementById('final-score');
+    const modeButtons = document.querySelectorAll('[data-mode]');
+
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function playNote(freq, keyId, duration = 0.35) {
+      const ctx = getAudio();
+      ctx.resume?.();
+      stopNote(keyId);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.22, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration + 0.05);
+      oscillators.set(keyId, { osc, gain });
+      setTimeout(() => oscillators.delete(keyId), (duration + 0.1) * 1000);
+    }
+
+    function stopNote(keyId) {
+      const active = oscillators.get(keyId);
+      if (!active) return;
+      const ctx = getAudio();
+      const { osc, gain } = active;
+      try {
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+        osc.stop(ctx.currentTime + 0.1);
+      } catch (_) {}
+      oscillators.delete(keyId);
+    }
+
+    function flashKey(index, duration = 450) {
+      const btn = keyButtons[index];
+      if (!btn) return;
+      btn.classList.add('is-lit');
+      playNote(notas[index].freq, `key-${index}`, duration / 1000 * 0.85);
+      setTimeout(() => btn.classList.remove('is-lit'), duration);
+    }
+
+    function renderLives() {
+      livesEl.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const span = document.createElement('span');
+        span.className = i < lives ? 'vida-cheia' : 'vida-vazia';
+        span.textContent = i < lives ? '♥' : '♡';
+        span.setAttribute('aria-hidden', 'true');
+        livesEl.appendChild(span);
+      }
+      livesEl.setAttribute('aria-label', `${lives} vidas`);
+    }
+
+    function setKeysEnabled(enabled) {
+      keyButtons.forEach(btn => { btn.disabled = !enabled; });
+    }
+
+    function setStatus(text) {
+      statusMsg.textContent = text;
+    }
+
+    function updateModeButtons() {
+      modeButtons.forEach(btn => {
+        const isActive = btn.dataset.mode === currentMode;
+        btn.className = isActive
+          ? 'font-kids px-5 py-2.5 rounded-full border-2 border-mundo-laranja bg-mundo-laranja text-white font-bold text-sm shadow-md hover:opacity-90 transition'
+          : 'font-kids px-5 py-2.5 rounded-full border-2 border-mundo-amarelo bg-white text-mundo-texto font-bold text-sm shadow-md hover:border-mundo-laranja transition';
+        btn.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
+    function resetGameState() {
+      sequence = [];
+      playerStep = 0;
+      score = 0;
+      lives = 3;
+      gameActive = false;
+      inputLocked = true;
+      isPlayingSequence = false;
+      panelGameover.classList.add('hidden');
+      btnRestart.classList.add('hidden');
+      scoreEl.textContent = '0';
+      renderLives();
+
+      if (currentMode === 'free') {
+        challengeControls.classList.add('hidden');
+        setKeysEnabled(true);
+        setStatus('Modo Livre: toque e explore os sons do parque.');
+        return;
+      }
+
+      challengeControls.classList.remove('hidden');
+      btnStart.classList.remove('hidden');
+      btnStart.disabled = false;
+      btnStart.textContent = 'Iniciar jogo';
+      setKeysEnabled(false);
+      setStatus('Toque em Iniciar para começar!');
+    }
+
+    function applyMode(mode) {
+      currentMode = mode;
+      updateModeButtons();
+      resetGameState();
+    }
+
+    async function playSequence() {
+      if (currentMode !== 'challenge') return;
+      isPlayingSequence = true;
+      inputLocked = true;
+      setKeysEnabled(false);
+      setStatus('Ouça com atenção…');
+      await new Promise(r => setTimeout(r, 600));
+      for (let i = 0; i < sequence.length; i++) {
+        flashKey(sequence[i], 500);
+        await new Promise(r => setTimeout(r, 650));
+      }
+      isPlayingSequence = false;
+      inputLocked = false;
+      setKeysEnabled(true);
+      playerStep = 0;
+      setStatus('Sua vez! Repita a sequência.');
+    }
+
+    function addToSequence() {
+      sequence.push(Math.floor(Math.random() * 8));
+    }
+
+    function startRound() {
+      if (currentMode !== 'challenge') return;
+      addToSequence();
+      playSequence();
+    }
+
+    function startGame() {
+      if (currentMode !== 'challenge') return;
+      sequence = [];
+      playerStep = 0;
+      score = 0;
+      lives = 3;
+      gameActive = true;
+      scoreEl.textContent = '0';
+      panelGameover.classList.add('hidden');
+      btnStart.textContent = 'Próxima rodada';
+      btnStart.classList.add('hidden');
+      renderLives();
+      setStatus('Preparando…');
+      startRound();
+    }
+
+    function gameOver() {
+      gameActive = false;
+      inputLocked = true;
+      setKeysEnabled(false);
+      finalScoreEl.textContent = String(score);
+      panelGameover.classList.remove('hidden');
+      btnStart.classList.remove('hidden');
+      btnStart.textContent = 'Iniciar jogo';
+      btnRestart.classList.remove('hidden');
+      setStatus('Sem vidas! Tente de novo.');
+    }
+
+    function loseLife() {
+      lives--;
+      renderLives();
+      if (lives <= 0) {
+        gameOver();
+        return;
+      }
+      setStatus(`Ops! Você tem ${lives} vida(s). Ouça de novo…`);
+      playerStep = 0;
+      inputLocked = true;
+      setKeysEnabled(false);
+      setTimeout(() => {
+        if (currentMode === 'challenge' && gameActive) playSequence();
+      }, 1200);
+    }
+
+    function handleKeyPress(index) {
+      if (currentMode === 'free') {
+        flashKey(index, 320);
+        return;
+      }
+
+      if (!gameActive || inputLocked || isPlayingSequence) return;
+
+      flashKey(index, 320);
+
+      if (sequence[playerStep] !== index) {
+        loseLife();
+        return;
+      }
+
+      playerStep++;
+      if (playerStep >= sequence.length) {
+        score++;
+        scoreEl.textContent = String(score);
+        inputLocked = true;
+        setKeysEnabled(false);
+        setStatus('Muito bem! Próxima sequência…');
+        setTimeout(() => {
+          if (currentMode === 'challenge' && gameActive) startRound();
+        }, 1400);
+      }
+    }
+
+    notas.forEach((nota, i) => {
+      const keyId = `key-${i}`;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.disabled = true;
+      btn.className = `piano-key ${nota.cor} flex-1 min-w-[2.25rem] max-w-[3.5rem] sm:max-w-[4rem] h-28 sm:h-36 rounded-t-2xl rounded-b-lg border-b-4 border-black/15 shadow-md font-kids font-bold text-white/90 text-xs sm:text-sm flex flex-col items-center justify-end pb-2 sm:pb-3`;
+      btn.setAttribute('aria-label', `Nota ${nota.nome}, tecla ${nota.tecla}`);
+      btn.innerHTML = `<span class="text-[10px] opacity-90 font-bold">${nota.tecla}</span><span>${nota.nome}</span>`;
+
+      const press = () => handleKeyPress(i);
+      btn.addEventListener('click', press);
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); press(); }, { passive: false });
+
+      piano.appendChild(btn);
+      keyButtons.push(btn);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.repeat) return;
+      const idx = TECLAS_PC.indexOf(e.key.toLowerCase());
+      if (idx === -1) return;
+      e.preventDefault();
+      const btn = keyButtons[idx];
+      btn.classList.add('is-pressed');
+      handleKeyPress(idx);
+    });
+
+    document.addEventListener('keyup', (e) => {
+      const idx = TECLAS_PC.indexOf(e.key.toLowerCase());
+      if (idx !== -1) keyButtons[idx]?.classList.remove('is-pressed');
+    });
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => applyMode(btn.dataset.mode));
+    });
+
+    btnStart.addEventListener('click', () => {
+      if (currentMode === 'challenge') startGame();
+    });
+
+    btnRestart.addEventListener('click', () => {
+      panelGameover.classList.add('hidden');
+      if (currentMode === 'challenge') startGame();
+    });
+
+    applyMode(currentMode);
+  </script>
+</body>
+</html>

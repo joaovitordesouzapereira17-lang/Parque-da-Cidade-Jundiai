@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Parque da Cidade de Jundiaí, natureza, lazer e cultura no coração da cidade." />
+  <title>Parque da Cidade de Jundiaí | Início</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parque: { DEFAULT: '#1E5A34', escuro: '#16532C', claro: '#e6f2eb', 100: '#f5fbf4', 200: '#d8ead8' },
+            fundo: { DEFAULT: '#ffffff', suave: '#f8fafc', cinza: '#f1f5f9' },
+            texto: { DEFAULT: '#1e293b', suave: '#64748b' },
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; }
+    h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
+    .weather-topbar { background: linear-gradient(90deg, #16532C 0%, #1E5A34 50%, #16532C 100%); }
+    .weather-widget svg { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.12)); }
+  </style>
+</head>
+<body class="bg-fundo-suave text-texto antialiased overflow-x-hidden">
+
+  <header class="bg-parque text-white sticky top-0 z-50 shadow-md">
+    <div class="weather-topbar border-b border-white/10" role="region" aria-label="Clima em Jundiaí">
+      <div class="weather-widget max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 shrink-0 text-amber-300" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="18" cy="18" r="8" fill="currentColor" opacity="0.95"/>
+          <g stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.9">
+            <path d="M18 4v4M18 28v4M4 18h4M28 18h4M7.5 7.5l2.8 2.8M25.7 25.7l2.8 2.8M7.5 28.5l2.8-2.8M25.7 10.3l2.8-2.8"/>
+          </g>
+          <path d="M22 32c0-4.4 3.6-8 8-8 1.2 0 2.3.3 3.3.8 2.2-1.5 5.2-.6 6.4 1.8 3.5.4 6.3 3.4 6.3 7 0 3.9-3.1 7-7 7H22c-3.3 0-6-2.7-6-6 0-2.8 1.9-5.1 4.5-5.8" fill="#fff" fill-opacity="0.92"/>
+        </svg>
+        <p class="text-[11px] sm:text-sm leading-snug text-white/90 text-center sm:text-left">
+          <span id="clima-temperatura" class="text-white/95 font-semibold">Jundiaí: 17°C, chuva leve e chuvisco</span>
+        </p>
+      </div>
+    </div>
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 sm:py-0 sm:min-h-[4.5rem] lg:min-h-20">
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-12 w-auto" width="120" height="48" />
+        <div class="min-w-0 leading-tight">
+          <span class="font-display text-base sm:text-lg font-semibold text-white block">Parque da Cidade</span>
+          <span class="text-[10px] sm:text-xs text-white/85 block">Jundiaí</span>
+        </div>
+      </a>
+      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 md:gap-8 text-xs sm:text-sm font-medium">
+        <li><a href="index.html" class="text-white font-semibold border-b-2 border-white pb-0.5">Início</a></li>
+        <li><a href="atracoes.html" class="text-white/90 hover:text-white transition">Atrações</a></li>
+        <li><a href="eventos.html" class="text-white/90 hover:text-white transition">Eventos</a></li>
+        <li><a href="infantil.html" class="text-white/90 hover:text-white transition">Infantil</a></li>
+        <li><a href="#contato" class="text-white/90 hover:text-white transition">Contato</a></li>
+        <li>
+          <a href="index.html#como-chegar" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/50 text-white font-semibold hover:bg-white/10 transition whitespace-nowrap">Como Chegar</a>
+        </li>
+      </ul>
+      <a href="atracoes.html" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-parque text-sm font-semibold hover:bg-fundo-suave transition active:scale-[0.98]">Explorar</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-end overflow-hidden">
+    <img src="imagens/hero-parque.jpg" alt="Vista panorâmica do Parque da Cidade de Jundiaí" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-parque-escuro via-parque/80 to-parque/40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24 w-full">
+      <p class="text-parque-claro text-sm font-semibold uppercase tracking-[0.2em] mb-4">Bem-vindo ao seu refúgio urbano</p>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-3xl leading-[1.1]">
+        Natureza viva no coração de Jundiaí
+      </h1>
+      <p class="mt-6 text-lg text-white/85 max-w-xl leading-relaxed">
+        Mais de 400 mil m² de áreas verdes, lago, trilhas e cultura para toda a família, aberto todos os dias, do amanhecer ao entardecer.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="atracoes.html" class="inline-flex px-8 py-3.5 rounded-full bg-white text-parque font-semibold hover:bg-fundo-suave transition shadow-lg active:scale-[0.98]">Conheça as atrações</a>
+        <a href="eventos.html" class="inline-flex px-8 py-3.5 rounded-full border border-white/40 text-white font-medium hover:bg-white/10 transition active:scale-[0.98]">Agenda de eventos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seções do parque -->
+  <section id="parque" class="py-20 lg:py-28 bg-fundo">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-parque text-sm font-semibold uppercase tracking-widest">O parque</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-texto mt-3">Seções para cada momento</h2>
+        <p class="mt-4 text-texto-suave text-lg">Caminhe, pedale, descanse à beira do lago ou mergulhe na cultura, tudo em um só lugar.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="group rounded-2xl overflow-hidden bg-white shadow-md shadow-slate-200/80 hover:shadow-xl transition w-full min-w-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="imagens/lago.jpg" alt="Lago principal do parque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold text-texto">Lago e Paisagismo</h3>
+            <p class="mt-2 text-texto-suave text-sm leading-relaxed">Espelho d'água cercado por gramados, passarelas e vista privilegiada para o pôr do sol.</p>
+          </div>
+        </article>
+        <article class="group rounded-2xl overflow-hidden bg-white shadow-md shadow-slate-200/80 hover:shadow-xl transition w-full min-w-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="imagens/jardimjapones.jpg" alt="Jardim Japonês" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold text-texto">Jardim Japonês</h3>
+            <p class="mt-2 text-texto-suave text-sm leading-relaxed">Pontes de madeira, carpas e silêncio contemplativo em um dos cartões-postais do parque.</p>
+          </div>
+        </article>
+        <article class="group rounded-2xl overflow-hidden bg-white shadow-md shadow-slate-200/80 hover:shadow-xl transition md:col-span-2 lg:col-span-1 w-full min-w-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="imagens/pistadecaminhadaecicloviaarborizada.jpg" alt="Trilhas e bosque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold text-texto">Trilhas e Bosque</h3>
+            <p class="mt-2 text-texto-suave text-sm leading-relaxed">Caminhos sombreados para caminhada, corrida leve e observação da fauna local.</p>
+          </div>
+        </article>
+        <article class="group rounded-2xl overflow-hidden bg-white border border-fundo-cinza md:col-span-2 w-full min-w-0 shadow-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 h-full">
+            <div class="aspect-[4/3] sm:aspect-auto overflow-hidden">
+              <img src="imagens/caiaquenolagodoparque.jpg" alt="Centro Náutico" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            </div>
+            <div class="p-8 flex flex-col justify-center">
+              <h3 class="font-display text-2xl font-semibold text-texto">Centro Náutico</h3>
+              <p class="mt-3 text-texto-suave text-sm leading-relaxed">Caiaque com estrutura profissional à beira do lago, ideal para curtir o parque em família.</p>
+              <a href="atracoes.html#centro-nautico" class="mt-6 inline-flex w-fit px-6 py-2.5 rounded-full bg-parque text-white font-semibold text-sm hover:bg-parque-escuro transition">Ver atividades</a>
+            </div>
+          </div>
+        </article>
+        <article class="group rounded-2xl overflow-hidden bg-white shadow-md shadow-slate-200/80 hover:shadow-xl transition w-full min-w-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="imagens/pistadecaminhadaecicloviaarborizada.jpg" alt="Ciclovia do parque" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold text-texto">Ciclovia</h3>
+            <p class="mt-2 text-texto-suave text-sm leading-relaxed">Percurso seguro e arborizado, ideal para treino ao ar livre.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Área infantil -->
+  <section id="infantil" class="py-20 lg:py-28 bg-fundo-suave">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Para os pequenos</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-3">Área Infantil</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed">
+            Playgrounds modernos, piso emborrachado e espaços amplos para brincar com segurança. O parque é referência em lazer familiar na região, traga a criançada e deixe a imaginação correr solta entre árvores e risadas.
+          </p>
+          <ul class="mt-8 space-y-4">
+            <li class="flex gap-3 items-start">
+              <span class="w-6 h-6 rounded-full bg-parque-claro flex items-center justify-center text-parque text-xs shrink-0 mt-0.5">✓</span>
+              <span class="text-sm text-texto/80"><strong class="text-texto">Brinquedos inclusivos</strong>, estruturas adaptadas para diferentes idades e mobilidades.</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="w-6 h-6 rounded-full bg-parque-claro flex items-center justify-center text-parque text-xs shrink-0 mt-0.5">✓</span>
+              <span class="text-sm text-texto/80"><strong class="text-texto">Sombra e água</strong>, bebedouros e quiosques próximos para pausas confortáveis.</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="w-6 h-6 rounded-full bg-parque-claro flex items-center justify-center text-parque text-xs shrink-0 mt-0.5">✓</span>
+              <span class="text-sm text-texto/80"><strong class="text-texto">Eventos infantis</strong>, programação especial em feriados e férias escolares.</span>
+            </li>
+          </ul>
+          <a href="infantil.html" class="mt-8 inline-flex px-6 py-3 rounded-full bg-parque text-white font-semibold text-sm hover:bg-parque-escuro transition active:scale-[0.98]">Mundo das Crianças Digital →</a>
+        </div>
+        <div class="order-1 lg:order-2 relative">
+          <div class="rounded-3xl overflow-hidden shadow-2xl shadow-slate-300/50">
+            <img src="imagens/playgrounddoparque.jpg" alt="Área infantil do parque" class="w-full aspect-[4/5] object-cover" />
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-parque text-white px-6 py-4 rounded-2xl shadow-lg hidden sm:block">
+            <p class="font-display text-2xl font-bold">100%</p>
+            <p class="text-xs font-semibold uppercase tracking-wide">diversão ao ar livre</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28 bg-parque-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] items-start">
+        <div class="relative overflow-hidden rounded-[2rem] bg-white/85 border border-parque-200 p-6 sm:p-8 shadow-md">
+          <span class="absolute -top-4 -right-4 text-4xl opacity-20" aria-hidden="true">🌿</span>
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Guia do Pequeno Protetor</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-parque-escuro mt-3">Aprenda a cuidar do parque</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed font-sans">
+            Alguns cuidados simples ajudam a proteger os animais e a manter o parque seguro e agradável para crianças, pais e visitantes.
+          </p>
+          <div class="mt-6 rounded-[1.5rem] bg-white border border-parque-200 p-5 shadow-sm">
+            <p class="text-sm font-semibold text-parque">Dica rápida</p>
+            <p class="mt-2 text-sm text-texto-suave leading-relaxed font-sans">
+              Observe, admire e respeite os espaços dos bichinhos. O cuidado de todos ajuda o parque a permanecer um lugar bonito e seguro.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <article class="relative overflow-hidden rounded-[1.75rem] bg-white/95 border border-parque-200 p-5 shadow-md">
+            <span class="absolute -top-3 -right-3 text-2xl opacity-20" aria-hidden="true">🍃</span>
+            <img src="imagens/animais/jundia.png" alt="Jundiá" class="h-16 w-16 object-contain drop-shadow-sm" />
+            <h3 class="font-display text-xl font-semibold text-parque-escuro mt-4">Não alimente os animais</h3>
+            <p class="mt-2 text-sm text-texto-suave leading-relaxed font-sans">
+              Os mascotes do parque já encontram tudo o que precisam na natureza. Comidas humanas podem fazer mal para a saúde deles.
+            </p>
+          </article>
+
+          <article class="relative overflow-hidden rounded-[1.75rem] bg-white/95 border border-parque-200 p-5 shadow-md">
+            <span class="absolute -top-3 -right-3 text-2xl opacity-20" aria-hidden="true">🐾</span>
+            <img src="imagens/animais/capivara.png" alt="Capivara" class="h-16 w-16 object-contain drop-shadow-sm" />
+            <h3 class="font-display text-xl font-semibold text-parque-escuro mt-4">Mantenha distância segura</h3>
+            <p class="mt-2 text-sm text-texto-suave leading-relaxed font-sans">
+              A capivara e os outros bichinhos adoram tirar fotos, mas gostam de ter o espaço deles respeitado. Evite chegar perto ou tocá-los.
+            </p>
+          </article>
+
+          <article class="relative overflow-hidden rounded-[1.75rem] bg-white/95 border border-parque-200 p-5 shadow-md">
+            <span class="absolute -top-3 -right-3 text-2xl opacity-20" aria-hidden="true">🦜</span>
+            <img src="imagens/animais/garca.png" alt="Garça" class="h-16 w-16 object-contain drop-shadow-sm" />
+            <h3 class="font-display text-xl font-semibold text-parque-escuro mt-4">Observe a Garça com cuidado</h3>
+            <p class="mt-2 text-sm text-texto-suave leading-relaxed font-sans">
+              A garça costuma pousar em zonas tranquilas do lago. Preserve o espaço, evite barulho excessivo e respeite a distância para que ela possa descansar com segurança.
+            </p>
+          </article>
+
+          <article class="relative overflow-hidden rounded-[1.75rem] bg-white/95 border border-parque-200 p-5 shadow-md">
+            <span class="absolute -top-3 -right-3 text-2xl opacity-20" aria-hidden="true">🦏</span>
+            <img src="imagens/animais/loboguara.png" alt="Lobo-Guará" class="h-16 w-16 object-contain drop-shadow-sm" />
+            <h3 class="font-display text-xl font-semibold text-parque-escuro mt-4">Proteja a nossa fauna</h3>
+            <p class="mt-2 text-sm text-texto-suave leading-relaxed font-sans">
+              O lobo-guará e outros animais da fauna brasileira correm riscos na natureza. Conhecer e respeitar as espécies é o primeiro passo para nos ajudar a protegê-los.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contatos -->
+  <section id="contato" class="py-20 lg:py-28 bg-fundo-cinza">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-fundo border border-fundo-cinza shadow-xl overflow-hidden text-texto">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-8 lg:p-12">
+            <span class="text-parque text-sm font-semibold uppercase tracking-widest">Contato</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-3">Visite ou fale conosco</h2>
+            <p class="mt-4 text-texto-suave leading-relaxed">
+              O Parque da Cidade fica na região central de Jundiaí, com acesso facilitado e estacionamento nas proximidades.
+            </p>
+            <dl class="mt-10 space-y-6">
+              <div>
+                <dt class="text-parque text-xs font-semibold uppercase tracking-wider">Endereço</dt>
+                <dd class="mt-1 text-texto">Av. Francisco Telles, 375, Parque da Cidade, Jundiaí, SP</dd>
+              </div>
+              <div>
+                <dt class="text-parque text-xs font-semibold uppercase tracking-wider">Horário</dt>
+                <dd class="mt-1 text-texto">Segunda a sexta: 06:30 às 19:00<br />Sábados, domingos e feriados: 06:30 às 18:00</dd>
+              </div>
+              <div>
+                <dt class="text-parque text-xs font-semibold uppercase tracking-wider">Telefone</dt>
+                <dd class="mt-1"><a href="tel:+551145210000" class="text-texto hover:text-parque transition">(11) 4521-0000</a></dd>
+              </div>
+              <div>
+                <dt class="text-parque text-xs font-semibold uppercase tracking-wider">E-mail</dt>
+                <dd class="mt-1"><a href="mailto:parque@jundiai.sp.gov.br" class="text-texto hover:text-parque transition">parque@jundiai.sp.gov.br</a></dd>
+              </div>
+            </dl>
+          </div>
+          <div id="como-chegar" class="bg-fundo-suave p-8 lg:p-12 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-fundo-cinza">
+            <h3 class="font-display text-xl font-semibold text-texto">Planeje sua visita</h3>
+            <p class="mt-2 text-sm text-texto-suave">Confira eventos e atrações antes de vir ao parque.</p>
+            <div class="mt-8 flex flex-col sm:flex-row flex-wrap gap-4">
+              <a href="https://www.google.com/maps/place/Parque+da+Cidade/@-23.1548494,-46.8873471,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf26146196ff3d:0xfd103eb86ded77e5!8m2!3d-23.1548494!4d-46.8873471!16s%2Fg%2F11b8v9p_ty?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="text-center px-6 py-3 rounded-full bg-parque text-white font-semibold hover:bg-parque-escuro transition active:scale-[0.98]">Como Chegar</a>
+              <a href="eventos.html" class="text-center px-6 py-3 rounded-full border-2 border-parque text-parque font-medium hover:bg-parque-claro transition active:scale-[0.98]">Ver eventos</a>
+            </div>
+            <div class="mt-8 flex flex-col items-center">
+              <img src="imagens/mapadoparque.jpg" alt="Mapa do Parque da Cidade" class="w-full h-auto object-cover rounded-lg shadow-md">
+              <a href="atracoes.html" class="mt-4 inline-flex justify-center px-6 py-3 rounded-full border-2 border-parque text-parque font-medium hover:bg-parque-claro transition active:scale-[0.98]">Mapa de atrações</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-parque text-white py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+        <a href="index.html" class="flex items-center gap-3 shrink-0">
+          <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-10 w-auto brightness-0 invert" width="100" height="40" />
+          <span class="text-sm font-medium text-white">Parque da Cidade, Jundiaí</span>
+        </a>
+        <p class="text-sm text-white/75 text-center">© 2026 Parque da Cidade de Jundiaí, Prefeitura Municipal</p>
+        <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/90">
+          <a href="index.html" class="hover:text-white transition">Início</a>
+          <a href="atracoes.html" class="hover:text-white transition">Atrações</a>
+          <a href="eventos.html" class="hover:text-white transition">Eventos</a>
+          <a href="infantil.html" class="hover:text-white transition">Infantil</a>
+          <a href="index.html#como-chegar" class="hover:text-white transition">Como Chegar</a>
+          <a href="index.html#contato" class="hover:text-white transition">Contato</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+

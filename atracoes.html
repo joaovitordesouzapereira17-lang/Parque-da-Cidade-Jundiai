@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Atrações do Parque da Cidade de Jundiaí — Jardim Japonês, Centro Náutico, ciclovia, trilhas e mais." />
+  <title>Parque da Cidade de Jundiaí | Atrações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parque: { DEFAULT: '#1E5A34', escuro: '#16532C', claro: '#e6f2eb' },
+            fundo: { DEFAULT: '#ffffff', suave: '#f8fafc', cinza: '#f1f5f9' },
+            texto: { DEFAULT: '#1e293b', suave: '#64748b' },
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; }
+    h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
+    .weather-topbar { background: linear-gradient(90deg, #16532C 0%, #1E5A34 50%, #16532C 100%); }
+    .weather-widget svg { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.12)); }
+  </style>
+</head>
+<body class="bg-fundo-suave text-texto antialiased overflow-x-hidden">
+
+  <header class="bg-parque text-white sticky top-0 z-50 shadow-md">
+    <div class="weather-topbar border-b border-white/10" role="region" aria-label="Clima em Jundiaí">
+      <div class="weather-widget max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 shrink-0 text-amber-300" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="18" cy="18" r="8" fill="currentColor" opacity="0.95"/>
+          <g stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.9">
+            <path d="M18 4v4M18 28v4M4 18h4M28 18h4M7.5 7.5l2.8 2.8M25.7 25.7l2.8 2.8M7.5 28.5l2.8-2.8M25.7 10.3l2.8-2.8"/>
+          </g>
+          <path d="M22 32c0-4.4 3.6-8 8-8 1.2 0 2.3.3 3.3.8 2.2-1.5 5.2-.6 6.4 1.8 3.5.4 6.3 3.4 6.3 7 0 3.9-3.1 7-7 7H22c-3.3 0-6-2.7-6-6 0-2.8 1.9-5.1 4.5-5.8" fill="#fff" fill-opacity="0.92"/>
+        </svg>
+        <p class="text-[11px] sm:text-sm leading-snug text-white/90 text-center sm:text-left max-w-[20rem] sm:max-w-none">
+          <span class="font-semibold text-white">Jundiaí:</span>
+          <span class="text-white/95"> 24°C, ensolarado.</span>
+          <span class="text-white/80 hidden sm:inline"> Ideal para atividades ao ar livre</span>
+          <span class="block sm:hidden text-white/75 text-[10px] mt-0.5">Ideal para atividades ao ar livre</span>
+        </p>
+      </div>
+    </div>
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 sm:py-0 sm:min-h-[4.5rem] lg:min-h-20">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-12 w-auto" width="120" height="48" />
+        <div class="min-w-0 leading-tight">
+          <span class="font-display text-base sm:text-lg font-semibold text-white block">Parque da Cidade</span>
+          <span class="text-[10px] sm:text-xs text-white/85 block">Jundiaí</span>
+        </div>
+      </a>
+      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 md:gap-8 text-xs sm:text-sm font-medium">
+        <li><a href="index.html" class="text-white/90 hover:text-white transition">Início</a></li>
+        <li><a href="atracoes.html" class="text-white font-semibold border-b-2 border-white pb-0.5">Atrações</a></li>
+        <li><a href="eventos.html" class="text-white/90 hover:text-white transition">Eventos</a></li>
+        <li><a href="infantil.html" class="text-white/90 hover:text-white transition">Infantil</a></li>
+        <li><a href="index.html#contato" class="text-white/90 hover:text-white transition">Contato</a></li>
+        <li>
+          <a href="index.html#como-chegar" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/50 text-white font-semibold hover:bg-white/10 transition whitespace-nowrap">Como Chegar</a>
+        </li>
+      </ul>
+      <a href="eventos.html" class="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-white text-parque text-sm font-semibold hover:bg-fundo-suave transition active:scale-[0.98]">Eventos</a>
+    </nav>
+  </header>
+
+  <!-- Hero premium -->
+  <section class="relative py-24 lg:py-32 overflow-hidden bg-parque">
+    <img src="imagens/hero-parque.jpg" alt="Atrações do parque" class="absolute inset-0 w-full h-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-r from-parque-escuro via-parque/90 to-transparent"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-4 py-1.5 rounded-full border border-white/40 text-parque-claro text-xs font-semibold uppercase tracking-widest mb-6">Experiências premium</span>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white max-w-2xl">Atrações que transformam seu dia</h1>
+      <p class="mt-6 text-lg text-white/80 max-w-xl">Do silêncio do Jardim Japonês à adrenalina do Centro Náutico, descubra cada canto do parque.</p>
+  <!-- Jardim Japonês -->
+  <section id="jardim-japones" class="py-20 lg:py-28 bg-fundo">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="rounded-3xl overflow-hidden shadow-2xl w-full min-w-0">
+          <img src="imagens/jardimjapones.jpg" alt="Jardim Japonês do Parque da Cidade" class="w-full aspect-[4/3] object-cover" />
+        </div>
+        <div>
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Contemplação</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-2">Jardim Japonês</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed">
+            Inspirado na estética zen, o jardim combina pedras, lanternas, carpas e pontes de madeira sobre um riacho artificial. É o espaço ideal para meditação, fotografia e momentos de calma longe do ritmo urbano.
+          </p>
+          <ul class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-parque"></span> Acesso gratuito</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-parque"></span> Melhor luz: manhã</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-parque"></span> Trilha contemplativa</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-parque"></span> Eventos culturais</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Centro Náutico + Caiaque box -->
+  <section id="centro-nautico" class="py-20 bg-fundo-suave">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+        <div class="lg:sticky lg:top-28">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Água e movimento</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-2">Centro Náutico</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed">
+            Instalações à beira do lago com vestiários, instrutores credenciados e equipamentos de qualidade. O espaço oferece caiaque em um ambiente tranquilo, perfeito para famílias e iniciantes que querem vivenciar o lago com segurança.
+          </p>
+          <img src="imagens/caiaquenolagodoparque.jpg" alt="Centro Náutico" class="mt-8 rounded-2xl w-full aspect-video object-cover shadow-lg" />
+        </div>
+
+        <!-- Box Caiaque -->
+        <aside class="rounded-3xl border-2 border-parque/30 bg-gradient-to-br from-parque to-parque-escuro text-white p-8 lg:p-10 shadow-xl">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl">🛶</span>
+            <div>
+              <h3 class="font-display text-2xl font-bold">Caiaque</h3>
+              <p class="text-parque-claro text-sm font-medium">Atividade em destaque</p>
+            </div>
+          </div>
+          <div class="mb-4 inline-flex rounded-full bg-amber-300 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-parque">
+            EXCLUSIVO DE FIM DE SEMANA - VAGAS LIMITADAS
+          </div>
+          <p class="text-white/85 leading-relaxed text-sm">
+            Navegue pelo lago em caiaques individuais ou duplos, sempre com colete salva-vidas obrigatório e briefing de segurança antes de cada saída.
+          </p>
+          <p class="mt-3 text-xs text-white/85 leading-relaxed">
+            Evite filas! Garanta seu horário com antecedência. Lote de reservas aberto todas as sextas-feiras, às 12h.
+          </p>
+          <div class="mt-6 flex justify-center sm:justify-start">
+            <a href="index.html#contato" class="inline-flex items-center justify-center rounded-full border-2 border-white/90 bg-white text-parque px-5 py-2.5 text-sm font-semibold shadow-sm hover:bg-parque-claro transition active:scale-[0.98]">Agendar com Antecedência (Fura-Fila)</a>
+          </div>
+          <div class="mt-8 grid grid-cols-1 gap-4">
+            <div class="rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+              <h4 class="font-semibold text-parque-claro text-xs uppercase tracking-wider mb-2">Como funciona</h4>
+              <p class="text-sm text-white/80">Retire o equipamento no balcão do Centro Náutico, apresente documento com foto e assine o termo de responsabilidade. Saídas a cada 30 minutos, das 8h às 17h.</p>
+            </div>
+            <div class="rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+              <h4 class="font-semibold text-parque-claro text-xs uppercase tracking-wider mb-2">Valores (referência)</h4>
+              <ul class="text-sm text-white/80 space-y-1">
+                <li>• Caiaque individual — 45 min: <strong class="text-white">R$ 35</strong></li>
+                <li>• Caiaque duplo — 45 min: <strong class="text-white">R$ 55</strong></li>
+                <li>• Menores de 12 anos: acompanhados por responsável</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+              <h4 class="font-semibold text-parque-claro text-xs uppercase tracking-wider mb-2">Regras importantes</h4>
+              <p class="text-sm text-white/80">Proibido consumo de álcool antes da atividade. Em dias de chuva forte ou ventania, o serviço pode ser suspenso por segurança.</p>
+            </div>
+          </div>
+          <img src="imagens/caiaquenolagodoparque.jpg" alt="Caiaque no lago do parque" class="mt-8 rounded-2xl w-full aspect-[16/10] object-cover ring-2 ring-white/30" />
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pista de Caminhada e Ciclovia + Aluguel Bicicletas (Peama) -->
+  <section id="ciclovia" class="py-20 lg:py-28 bg-fundo">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="w-full min-w-0">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Caminhar e pedalar</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-2">Pista de Caminhada e Ciclovia</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed">
+            Percurso integrado à paisagem do parque, com trechos compartilhados com pedestres. Respeite a sinalização e a velocidade indicada em cada trecho.
+          </p>
+          <div class="mt-8 rounded-2xl border border-fundo-cinza overflow-hidden shadow-md">
+            <table class="w-full text-sm text-left">
+              <caption class="sr-only">Distâncias oficiais da pista de caminhada e ciclovia</caption>
+              <thead class="bg-parque text-white">
+                <tr>
+                  <th scope="col" class="px-4 py-3 font-semibold">Trecho</th>
+                  <th scope="col" class="px-4 py-3 font-semibold text-right">Distância</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-fundo-cinza bg-fundo">
+                <tr><td class="px-4 py-3 text-texto-suave">Do Jardim Botânico até linha férrea</td><td class="px-4 py-3 text-right font-semibold text-parque">2.550 m</td></tr>
+                <tr><td class="px-4 py-3 text-texto-suave">Da área de manancial (linha férrea) até o Parque da Cidade (Peama)</td><td class="px-4 py-3 text-right font-semibold text-parque">1.750 m</td></tr>
+                <tr><td class="px-4 py-3 text-texto-suave">Trecho completo — Jd. Botânico ao Parque da Cidade</td><td class="px-4 py-3 text-right font-semibold text-parque">4.300 m</td></tr>
+                <tr><td class="px-4 py-3 text-texto-suave">Circuito fechado dentro do Parque da Cidade</td><td class="px-4 py-3 text-right font-semibold text-parque">2.760 m</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <img src="imagens/pistadecaminhadaecicloviaarborizada.jpg" alt="Pista de caminhada e ciclovia arborizada" class="mt-8 rounded-2xl w-full aspect-video object-cover shadow-lg" />
+        </div>
+
+        <aside id="bicicletas" class="rounded-3xl bg-fundo-suave border border-fundo-cinza p-8 lg:p-10 shadow-lg">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 rounded-2xl bg-parque-claro flex items-center justify-center text-2xl">🚲</span>
+            <div>
+              <h3 class="font-display text-2xl font-bold text-texto">Aluguel de Bicicletas</h3>
+              <p class="text-parque text-sm font-medium">Peama</p>
+            </div>
+          </div>
+          <div class="mb-4 inline-flex rounded-full bg-amber-300 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-parque">
+            EXCLUSIVO DE FIM DE SEMANA - VAGAS LIMITADAS
+          </div>
+          <p class="text-texto-suave leading-relaxed text-sm">
+            Coordenado pelo Peama (Programa de Esportes e Atividades Motoras Adaptadas), o aluguel de bicicletas funciona aos finais de semana, das 9 às 16 horas. O aluguel contribui para a captação de recursos destinados ao programa, que promove a inclusão social de pessoas com deficiências por meio da prática de atividades motoras, esportivas e recreativas. O valor é de R$ 10 para bicicletas simples e R$ 20 para bicicletas duplas.
+          </p>
+          <p class="mt-3 text-xs text-texto-suave leading-relaxed">
+            Evite filas! Garanta seu horário com antecedência. Lote de reservas aberto todas as sextas-feiras, às 12h.
+          </p>
+          <div class="mt-6 flex justify-center sm:justify-start">
+            <a href="index.html#contato" class="inline-flex items-center justify-center rounded-full border-2 border-parque bg-white text-parque px-5 py-2.5 text-sm font-semibold shadow-sm hover:bg-parque-claro transition active:scale-[0.98]">Agendar com Antecedência (Fura-Fila)</a>
+          </div>
+          <div class="mt-8 space-y-4">
+            <div class="rounded-xl bg-fundo p-5 border border-fundo-cinza">
+              <h4 class="font-semibold text-texto text-sm mb-2">Valores</h4>
+              <ul class="text-sm text-texto-suave space-y-2">
+                <li class="flex justify-between border-b border-fundo-cinza pb-2"><span>Bicicleta simples</span><span class="font-semibold text-parque">R$ 10</span></li>
+                <li class="flex justify-between"><span>Bicicleta dupla</span><span class="font-semibold text-parque">R$ 20</span></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-parque-claro p-5">
+              <h4 class="font-semibold text-texto text-sm mb-2">Documentação para locação</h4>
+              <p class="text-sm text-texto-suave">Para locação, é obrigatória a apresentação de RG ou CNH + comprovante de endereço original.</p>
+            </div>
+            <div class="rounded-xl bg-fundo-cinza p-5">
+              <h4 class="font-semibold text-texto text-sm mb-2">Funcionamento</h4>
+              <p class="text-sm text-texto-suave">Sábados e domingos, das 9h às 16h.</p>
+            </div>
+          </div>
+          <img src="imagens/bicicletaparaaluguelnoparque.jpg" alt="Bicicletas para aluguel no parque" class="mt-8 rounded-2xl w-full aspect-[16/10] object-cover" />
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trilhas -->
+  <section id="trilhas" class="py-20 bg-fundo-cinza text-texto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="w-full min-w-0">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Aventura leve</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-texto mt-2">Trilhas e Bosque</h2>
+          <p class="mt-4 text-texto-suave leading-relaxed">
+            Rede de trilhas com diferentes níveis de dificuldade, desde caminhadas de 20 minutos até percursos de 1h30 entre araucárias e fauna urbana. Placas educativas ao longo do caminho.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <span class="px-4 py-2 rounded-full bg-fundo border border-fundo-cinza text-sm">Trilha Verde: 1,2 km</span>
+            <span class="px-4 py-2 rounded-full bg-fundo border border-fundo-cinza text-sm">Trilha do Bosque: 2,8 km</span>
+            <span class="px-4 py-2 rounded-full bg-parque text-white text-sm font-semibold">Trilha do Mirante: 4 km</span>
+          </div>
+        </div>
+        <img src="imagens/trilha.jpg" alt="Trilha no bosque" class="rounded-3xl w-full aspect-[4/3] object-cover shadow-2xl" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Atrações adicionais oficiais -->
+  <section id="mais-atracoes" class="py-20 lg:py-28 bg-fundo-suave">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-center text-texto mb-12">Mais atrações do parque</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <article id="aeromodelismo" class="rounded-2xl bg-white p-6 sm:p-8 shadow-md border border-fundo-cinza">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Esporte aéreo</span>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-texto mt-2">Pista de aeromodelismo</h3>
+          <p class="mt-4 text-sm text-texto-suave leading-relaxed">
+            Pavimentada, com hangar coberto. É preciso estar cadastrado junto à Cobra e na administração do Parque (apresentando CPF, RG e BRA). Passa por manutenção toda segunda-feira.
+          </p>
+        </article>
+
+        <article id="automodelismo" class="rounded-2xl bg-white p-6 sm:p-8 shadow-md border border-fundo-cinza">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Automodelismo</span>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-texto mt-2">Pistas de automodelismo</h3>
+          <p class="mt-4 text-sm text-texto-suave leading-relaxed">
+            Circuito Off Road em solo natural e Circuito On Road pavimentado. Manutenção toda segunda-feira.
+          </p>
+        </article>
+
+        <article id="playground" class="rounded-2xl bg-white p-6 sm:p-8 shadow-md border border-fundo-cinza">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Família</span>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-texto mt-2">Playground</h3>
+          <p class="mt-4 text-sm text-texto-suave leading-relaxed">
+            Três parques infantis (dois de madeira de reflorestamento perto da lanchonete e um misto equipado para PCD entre o Palquinho e a academia ao ar livre).
+          </p>
+          <img src="imagens/playgrounddoparque.jpg" alt="Playground do parque" class="mt-6 rounded-xl w-full aspect-video object-cover" />
+        </article>
+
+        <article id="quadras" class="rounded-2xl bg-white p-6 sm:p-8 shadow-md border border-fundo-cinza">
+          <span class="text-parque text-sm font-semibold uppercase tracking-widest">Esporte</span>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-texto mt-2">Quadras esportivas</h3>
+          <p class="mt-4 text-sm text-texto-suave leading-relaxed">
+            Cinco quadras oficiais (duas poliesportivas, duas de vôlei de areia e uma de futebol de areia). Acesso livre diariamente.
+          </p>
+          <img src="imagens/quadrasdoparque.jpeg" alt="Quadras esportivas do parque" class="mt-6 rounded-xl w-full aspect-video object-cover" />
+        </article>
+
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-6">
+        <article class="rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition w-full min-w-0">
+          <img src="imagens/lago.jpg" alt="Lago Principal com caiaque" class="w-full aspect-video object-cover" />
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold">Lago Principal</h3>
+            <p class="text-sm text-texto-suave mt-1">Acesse o Centro Náutico e experimente o caiaque com segurança, aproveitando o lago como ponto central da sua visita.</p>
+          </div>
+        </article>
+      </div>
+      <p class="text-center mt-12">
+        <a href="index.html" class="inline-flex px-8 py-3 rounded-full bg-parque text-white font-semibold hover:bg-parque-escuro transition active:scale-[0.98]">← Voltar ao início</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="bg-parque text-white py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+        <a href="index.html" class="flex items-center gap-3 shrink-0">
+          <img src="imagens/logo-parque.png" alt="Logo Parque da Cidade de Jundiaí" class="h-10 w-auto brightness-0 invert" width="100" height="40" />
+          <span class="text-sm font-medium">Parque da Cidade, Jundiaí</span>
+        </a>
+        <p class="text-sm text-white/75 text-center">© 2026 Parque da Cidade de Jundiaí</p>
+        <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/90">
+          <a href="index.html" class="hover:text-white transition">Início</a>
+          <a href="atracoes.html" class="hover:text-white transition">Atrações</a>
+          <a href="eventos.html" class="hover:text-white transition">Eventos</a>
+          <a href="infantil.html" class="hover:text-white transition">Infantil</a>
+          <a href="index.html#como-chegar" class="hover:text-white transition">Como Chegar</a>
+          <a href="index.html#contato" class="hover:text-white transition">Contato</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

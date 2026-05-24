@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz da Fauna | Mundo das Crianças Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mundo: {
+              amarelo: '#FFD54F', 'amarelo-claro': '#FFF8E1', azul: '#5EC8F2', 'azul-claro': '#E8F7FC',
+              laranja: '#FF9F43', rosa: '#FF8FAB', menta: '#98E4C9', lilas: '#C9B8FF',
+              texto: '#334155', suave: '#64748b',
+            },
+          },
+          fontFamily: { kids: ['Fredoka', 'Nunito', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: Fredoka, Nunito, system-ui, sans-serif; }
+    .img-mascote {
+      width: clamp(5rem, 28vw, 7rem);
+      height: clamp(5rem, 28vw, 7rem);
+      object-fit: contain;
+      background: linear-gradient(145deg, #E8F7FC, #FFF8E1);
+      border-radius: 1.25rem;
+      padding: 0.5rem;
+      margin: 0 auto;
+      display: block;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .shake { animation: shake 0.45s ease-in-out; }
+    @keyframes pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .pop-in { animation: pop 0.35s ease-out forwards; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .vida-cheia { background: #FF8FAB; }
+    .vida-vazia { background: transparent; border: 2px solid #cbd5e1; }
+  </style>
+</head>
+<body class="bg-mundo-azul-claro text-mundo-texto min-h-screen flex flex-col overflow-x-hidden antialiased">
+
+  <header class="bg-gradient-to-r from-mundo-azul to-mundo-menta text-white shrink-0 shadow-md">
+    <nav class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2 min-h-[3rem]">
+      <a href="infantil.html" class="text-sm font-semibold text-white hover:opacity-90 transition py-2">← Voltar</a>
+      <span class="font-kids font-bold text-sm sm:text-base text-center flex-1 px-2">Quiz da Fauna</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://www.google.com/maps/place/Parque+da+Cidade/@-23.1645373,-46.9080785,15z/data=!4m2!3m1!1s0x0:0xdd684ff2ecb1cc59" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-white/50 font-semibold hover:bg-white/15 transition">Como Chegar</a>
+        <a href="index.html" class="text-xs sm:text-sm text-white/90 hover:text-white py-2">Parque</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 w-full max-w-lg mx-auto px-4 py-6 sm:py-10 pb-8">
+
+    <section id="screen-start" class="screen active text-center pop-in">
+      <img src="imagens/animais/garca.png" alt="Mascote Garça" class="img-mascote mb-4" width="112" height="112" />
+      <h1 class="font-kids text-2xl sm:text-3xl font-bold text-mundo-texto">Quiz da Fauna</h1>
+      <p class="mt-3 text-sm sm:text-base text-mundo-suave leading-relaxed max-w-sm mx-auto">
+        4 perguntas de nível médio e difícil sobre os bichos do parque. Você começa com 3 vidas!
+      </p>
+      <button type="button" id="btn-start" class="mt-8 w-full sm:w-auto sm:min-w-[200px] px-8 py-4 rounded-2xl bg-mundo-azul text-white text-lg font-kids font-bold shadow-lg hover:opacity-90 transition">
+        Começar
+      </button>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <div class="flex items-center justify-between gap-3 mb-4">
+        <div id="hearts" class="flex gap-1.5" aria-label="Vidas restantes"></div>
+        <span id="question-counter" class="text-xs sm:text-sm font-kids font-bold text-mundo-laranja shrink-0">1 / 4</span>
+      </div>
+      <div class="h-2.5 rounded-full bg-white overflow-hidden mb-6 shadow-inner" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="progress-wrap">
+        <div id="progress-bar" class="h-full bg-mundo-amarelo rounded-full transition-all duration-500 w-0"></div>
+      </div>
+      <div class="rounded-2xl bg-white p-5 sm:p-6 shadow-md border-2 border-mundo-menta/50">
+        <p id="question-text" class="text-base sm:text-lg font-kids font-bold text-mundo-texto leading-snug text-center"></p>
+        <div id="options" class="mt-5 flex flex-col gap-3"></div>
+      </div>
+      <p id="feedback" class="mt-4 text-center text-sm font-kids font-bold min-h-[1.25rem]"></p>
+    </section>
+
+    <div id="fact-modal" class="fixed inset-0 z-40 hidden items-center justify-center bg-slate-950/50 px-4">
+      <div class="w-full max-w-md rounded-[2rem] bg-white border-4 border-mundo-amarelo shadow-2xl p-6 sm:p-7">
+        <p class="text-xs uppercase tracking-[0.2em] text-mundo-laranja font-kids font-bold">Você sabia?</p>
+        <h2 id="fact-title" class="mt-3 text-xl sm:text-2xl font-kids font-bold text-mundo-texto">Curiosidade</h2>
+        <p id="fact-text" class="mt-4 text-sm sm:text-base text-mundo-suave leading-relaxed whitespace-pre-line"></p>
+        <button type="button" id="fact-continue" class="mt-6 w-full rounded-2xl bg-mundo-azul px-5 py-3 text-white font-kids font-bold shadow-md hover:opacity-90 transition">
+          Continuar
+        </button>
+      </div>
+    </div>
+
+    <section id="screen-win" class="screen text-center pop-in">
+      <img src="imagens/animais/garca.png" alt="" class="img-mascote mb-4" width="96" height="96" />
+      <h2 class="font-kids text-2xl sm:text-3xl font-bold text-mundo-texto">Parabéns!</h2>
+      <p class="mt-2 text-mundo-suave">Você conhece bem a fauna do parque!</p>
+      <p class="mt-6 text-4xl sm:text-5xl font-kids font-bold text-mundo-azul" id="final-score">4 / 4</p>
+      <p class="text-sm text-mundo-suave mt-1">pontuação final</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <button type="button" id="btn-replay" class="px-6 py-3 rounded-2xl bg-mundo-azul text-white font-kids font-bold hover:opacity-90 transition">Jogar de novo</button>
+        <a href="infantil.html" class="px-6 py-3 rounded-2xl border-2 border-mundo-laranja text-mundo-laranja font-kids font-bold hover:bg-mundo-laranja-claro transition text-center">Outros jogos</a>
+      </div>
+    </section>
+
+    <section id="screen-lose" class="screen text-center pop-in">
+      <img src="imagens/animais/garca.png" alt="" class="img-mascote mb-4 opacity-80" width="96" height="96" />
+      <h2 class="font-kids text-2xl sm:text-3xl font-bold text-mundo-texto">Quase lá!</h2>
+      <p class="mt-2 text-sm text-mundo-suave">Suas vidas acabaram. Tente de novo!</p>
+      <p class="mt-4 text-2xl font-kids font-bold text-mundo-laranja" id="lose-score">0 / 4</p>
+      <button type="button" id="btn-retry" class="mt-8 px-8 py-3 rounded-2xl bg-mundo-amarelo text-mundo-texto font-kids font-bold hover:opacity-90 transition">Tentar novamente</button>
+    </section>
+
+  </main>
+
+  <script>
+    const perguntas = [
+      {
+        pergunta: 'Qual é o principal papel ecológico e o cuidado sanitário associado às capivaras no ecossistema do parque?',
+        opcoes: [
+          'Atuam como pastoras da vegetação marginal, exigindo atenção dos visitantes devido ao carrapato-estrela.',
+          'Ajudam na decomposição do solo e são inofensivas para os visitantes.',
+          'São predadoras de topo e não exigem cuidados sanitários.',
+          'Indicam a qualidade da água e não interagem com o solo.'
+        ],
+        correta: 0,
+        factKey: 'capivara'
+      },
+      {
+        pergunta: 'O peixe Jundiá é considerado uma espécie bioindicadora. O que isso significa para o Parque da Cidade?',
+        opcoes: [
+          'A sua presença e reprodução indicam que os corpos d’água do parque possuem boa qualidade ambiental.',
+          'Significa que ele só vive em rios com alta salinidade.',
+          'Indica que o parque está em processo de desertificação.',
+          'Mostra que os peixes estão sendo introduzidos por humanos.'
+        ],
+        correta: 0,
+        factKey: 'jundia'
+      },
+      {
+        pergunta: 'Além da beleza, qual a função biológica crucial do tucano para a manutenção da Mata Atlântica local?',
+        opcoes: [
+          'Dispersão de sementes grandes que outras aves menores não conseguem ingerir.',
+          'Polinização exclusiva de flores noturnas.',
+          'Controle direto da população de insetos aquáticos.',
+          'Aumentar a fertilidade do solo com excretas.'
+        ],
+        correta: 0,
+        factKey: 'tucano'
+      },
+      {
+        pergunta: 'Como o hábito alimentar das garças no lago do parque ajuda no equilíbrio da fauna aquática?',
+        opcoes: [
+          'Controlando a superpopulação de pequenos peixes e anfíbios através da predação.',
+          'Aumentando a proliferação de algas por dispersão de sementes.',
+          'Favorecendo a reprodução de mosquitos para manter a cadeia alimentar.',
+          'Substituindo os peixes predadores e reduzindo a biodiversidade.'
+        ],
+        correta: 0,
+        factKey: 'garca'
+      }
+    ];
+
+    const curiosidades = {
+      capivara: 'Elas controlam o crescimento de plantas aquáticas.\nSão hospedeiras do carrapato-estrela, exigindo cuidado sanitário no parque.',
+      jundia: 'Por viverem no fundo, eles são extremamente sensíveis a poluentes e metais pesados na água.\nSua presença indica qualidade ambiental estável nos rios do parque.',
+      tucano: 'O bico longo serve para regular a temperatura do corpo e alcançar frutos complexos no topo das árvores.\nEles dispersam sementes que outras aves não conseguem consumir.',
+      garca: 'Elas são predadoras de topo na cadeia do lago, indicando o equilíbrio de peixes e insetos na área.\nSeus hábitos alimentares ajudam a controlar a superpopulação de espécies menores.'
+    };
+
+    let indice = 0;
+    let vidas = 3;
+    let acertos = 0;
+    let bloqueado = false;
+    let audioCtx = null;
+
+    const screens = {
+      start: document.getElementById('screen-start'),
+      game: document.getElementById('screen-game'),
+      win: document.getElementById('screen-win'),
+      lose: document.getElementById('screen-lose')
+    };
+    const factModal = document.getElementById('fact-modal');
+    const factTitle = document.getElementById('fact-title');
+    const factText = document.getElementById('fact-text');
+    const factContinue = document.getElementById('fact-continue');
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove('active', 'pop-in'));
+      screens[name].classList.add('active', 'pop-in');
+    }
+
+    function closeFactModal() {
+      factModal.classList.add('hidden');
+      factModal.classList.remove('flex');
+    }
+
+    function openFactModal(texto) {
+      factTitle.textContent = 'Você sabia?';
+      factText.textContent = texto;
+      factModal.classList.remove('hidden');
+      factModal.classList.add('flex');
+    }
+
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function playTone(freq, duration, type = 'sine', volume = 0.15) {
+      try {
+        const ctx = getAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(volume, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + duration);
+      } catch (_) {}
+    }
+
+    function somAcerto() {
+      playTone(523, 0.12);
+      setTimeout(() => playTone(659, 0.12), 80);
+      setTimeout(() => playTone(784, 0.18), 160);
+    }
+
+    function somErro() {
+      playTone(200, 0.25, 'sawtooth', 0.12);
+      setTimeout(() => playTone(150, 0.3, 'sawtooth', 0.1), 120);
+    }
+
+    function renderHearts() {
+      const el = document.getElementById('hearts');
+      el.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const span = document.createElement('span');
+        span.className = `w-7 h-7 sm:w-8 sm:h-8 rounded-full ${i < vidas ? 'vida-cheia' : 'vida-vazia'}`;
+        span.setAttribute('aria-hidden', 'true');
+        el.appendChild(span);
+      }
+      el.setAttribute('aria-label', `${vidas} vidas restantes`);
+    }
+
+    function updateProgress() {
+      const pct = (indice / perguntas.length) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+      document.getElementById('progress-wrap').setAttribute('aria-valuenow', indice);
+      document.getElementById('question-counter').textContent = `${Math.min(indice + 1, perguntas.length)} / ${perguntas.length}`;
+    }
+
+    function renderQuestion() {
+      closeFactModal();
+      bloqueado = false;
+      const q = perguntas[indice];
+      document.getElementById('question-text').textContent = q.pergunta;
+      document.getElementById('feedback').textContent = '';
+      const opts = document.getElementById('options');
+      opts.innerHTML = '';
+      q.opcoes.forEach((texto, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'w-full text-left px-4 py-3 sm:py-3.5 rounded-xl border-2 border-mundo-azul-claro bg-mundo-amarelo-claro font-kids font-semibold text-sm sm:text-base hover:border-mundo-azul transition';
+        btn.textContent = texto;
+        btn.dataset.index = i;
+        btn.addEventListener('click', () => responder(i, btn));
+        opts.appendChild(btn);
+      });
+      renderHearts();
+      updateProgress();
+    }
+
+    function irParaProximaPergunta() {
+      closeFactModal();
+      if (vidas <= 0) {
+        document.getElementById('lose-score').textContent = `${acertos} / ${perguntas.length}`;
+        showScreen('lose');
+        return;
+      }
+      indice++;
+      if (indice >= perguntas.length) {
+        document.getElementById('final-score').textContent = `${acertos} / ${perguntas.length}`;
+        showScreen('win');
+        playTone(523, 0.1);
+        setTimeout(() => playTone(784, 0.2), 100);
+        return;
+      }
+      renderQuestion();
+    }
+
+    function responder(escolha, btn) {
+      if (bloqueado) return;
+      bloqueado = true;
+      getAudio().resume?.();
+
+      const q = perguntas[indice];
+      const certo = escolha === q.correta;
+      const todos = document.querySelectorAll('#options button');
+
+      if (certo) {
+        acertos++;
+        btn.classList.add('bg-green-500', 'border-green-600', 'text-white');
+        document.getElementById('feedback').textContent = 'Muito bem!';
+        document.getElementById('feedback').className = 'mt-4 text-center text-sm font-kids font-bold text-green-600';
+        somAcerto();
+        openFactModal(curiosidades[q.factKey]);
+      } else {
+        btn.classList.add('bg-red-500', 'border-red-600', 'text-white', 'shake');
+        todos[q.correta] && todos[q.correta].classList.add('ring-2', 'ring-green-500');
+        vidas--;
+        renderHearts();
+        document.getElementById('feedback').textContent = 'Ops! A resposta certa estava em verde.';
+        document.getElementById('feedback').className = 'mt-4 text-center text-sm font-kids font-bold text-red-600';
+        somErro();
+        setTimeout(() => irParaProximaPergunta(), 1400);
+      }
+    }
+
+    function iniciarJogo() {
+      indice = 0;
+      vidas = 3;
+      acertos = 0;
+      bloqueado = false;
+      closeFactModal();
+      showScreen('game');
+      renderQuestion();
+    }
+
+    factContinue.addEventListener('click', irParaProximaPergunta);
+
+    document.getElementById('btn-start').addEventListener('click', () => {
+      getAudio().resume?.();
+      iniciarJogo();
+    });
+    document.getElementById('btn-replay').addEventListener('click', iniciarJogo);
+    document.getElementById('btn-retry').addEventListener('click', iniciarJogo);
+  </script>
+</body>
+</html>
