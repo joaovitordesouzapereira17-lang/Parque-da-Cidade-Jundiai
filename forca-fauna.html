@@ -141,14 +141,20 @@
     const panelGame = document.getElementById('panel-game');
     const panelEnd = document.getElementById('panel-end');
 
+    function resumeAudioContext(ctx) {
+      if (!ctx?.resume) return;
+      ctx.resume().catch(() => {});
+    }
+
     function getAudio() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       return audioCtx;
     }
 
     function beep(freq, dur, vol = 0.12) {
+      const ctx = getAudio();
+      resumeAudioContext(ctx);
       try {
-        const ctx = getAudio();
         const o = ctx.createOscillator();
         const g = ctx.createGain();
         o.frequency.value = freq;
@@ -218,7 +224,7 @@
       if (letrasUsadas.has(letra)) return;
       letrasUsadas.add(letra);
       btn.disabled = true;
-      getAudio().resume?.();
+      resumeAudioContext(getAudio());
 
       const p = palavras[palavraAtual].palavra;
       const indices = [];
@@ -307,6 +313,7 @@
     }
 
     function reiniciar() {
+      resumeAudioContext(getAudio());
       palavraAtual = 0;
       vitorias = 0;
       panelEnd.classList.add('hidden');
@@ -314,10 +321,7 @@
       iniciarPalavra();
     }
 
-    document.getElementById('btn-play').addEventListener('click', () => {
-      getAudio().resume?.();
-      reiniciar();
-    });
+    document.getElementById('btn-play').addEventListener('click', reiniciar);
     document.getElementById('btn-restart').addEventListener('click', reiniciar);
     document.getElementById('btn-next').addEventListener('click', proximaOuFim);
     document.getElementById('btn-skip-word').addEventListener('click', () => {

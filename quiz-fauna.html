@@ -215,14 +215,20 @@
       factModal.classList.add('flex');
     }
 
+    function resumeAudioContext(ctx) {
+      if (!ctx?.resume) return;
+      ctx.resume().catch(() => {});
+    }
+
     function getAudio() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       return audioCtx;
     }
 
     function playTone(freq, duration, type = 'sine', volume = 0.15) {
+      const ctx = getAudio();
+      resumeAudioContext(ctx);
       try {
-        const ctx = getAudio();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = type;
@@ -308,7 +314,7 @@
     function responder(escolha, btn) {
       if (bloqueado) return;
       bloqueado = true;
-      getAudio().resume?.();
+      resumeAudioContext(getAudio());
 
       const q = perguntas[indice];
       const certo = escolha === q.correta;
@@ -346,11 +352,17 @@
     factContinue.addEventListener('click', irParaProximaPergunta);
 
     document.getElementById('btn-start').addEventListener('click', () => {
-      getAudio().resume?.();
+      resumeAudioContext(getAudio());
       iniciarJogo();
     });
-    document.getElementById('btn-replay').addEventListener('click', iniciarJogo);
-    document.getElementById('btn-retry').addEventListener('click', iniciarJogo);
+    document.getElementById('btn-replay').addEventListener('click', () => {
+      resumeAudioContext(getAudio());
+      iniciarJogo();
+    });
+    document.getElementById('btn-retry').addEventListener('click', () => {
+      resumeAudioContext(getAudio());
+      iniciarJogo();
+    });
   </script>
 </body>
 </html>

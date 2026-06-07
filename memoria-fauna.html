@@ -166,6 +166,11 @@
       if (name === 'win') screenWin.classList.add('active');
     }
 
+    function resumeAudioContext(ctx) {
+      if (!ctx?.resume) return;
+      ctx.resume().catch(() => {});
+    }
+
     function ensureAudioContext() {
       if (audioContext) return audioContext;
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -177,6 +182,7 @@
     function playTone(frequency, duration, type = 'sine', volume = 0.04) {
       const context = ensureAudioContext();
       if (!context) return;
+      resumeAudioContext(context);
 
       const oscillator = context.createOscillator();
       const gainNode = context.createGain();
@@ -266,6 +272,7 @@
     }
 
     function iniciarJogo() {
+      resumeAudioContext(ensureAudioContext());
       movimentos = 0;
       paresEncontrados = 0;
       viradas = [];
